@@ -1,154 +1,91 @@
-Neon Shadows
+# Neon Shadows
 
-Neon Shadows is a cyberpunk-inspired, AI-driven social deduction game, reminiscent of Mafia/Werewolf-style mechanics. Players are divided into city-aligned Resistance (e.g., Doctor, Netrunner) and hidden Corporate agents intent on sabotage. An LLM (Large Language Model) simulates each player’s dialogue, suspicions, defenses, and secret actions, providing an immersive experience even without human participants.
-Key Features
+Neon Shadows is a multiplayer social deduction game inspired by classics like Mafia and Werewolf. Set in a dystopian cyberpunk universe, players take on secret roles, engaging in deception, reasoning, and collaboration to fulfill their role-specific objectives.
 
-    LLM-Controlled Players
-    Each in-game player uses AI prompts to make decisions, provide arguments, and vote—no need for human input unless you want a mixed match.
+This project uses AI-driven players to simulate a fully autonomous game environment, leveraging powerful LLMs to create engaging interactions.
 
-    Hidden Roles
-    Corporate agents must deceive or sow confusion; Resistance roles seek to collaborate or investigate to uncover the threats.
+---
 
-    Day/Night Cycle
-        Day: Discussion, accusations, and voting to exile a suspect.
-        Night: Corporate kills, Doctor heals, Netrunner investigates, and more.
+## Table of Contents
 
-    Memory & Prompt Engineering
-    Each AI player maintains a short memory summary of recent events (accusations, exiles, night actions), ensuring coherence in dialogues over multiple days.
+1. [About the Game](#about-the-game)
+2. [Features](#features)
+3. [Game Roles](#game-roles)
+4. [How It Works](#how-it-works)
+5. [Getting Started](#getting-started)
+6. [Future Enhancements](#future-enhancements)
+7. [Contributing](#contributing)
+8. [License](#license)
 
-    Modular Codebase
-    Key logic split into multiple modules (e.g., player.py, roles.py, day_night.py, ai_brain.py) for clarity and easy extension.
+---
 
-Table of Contents
+## About the Game
 
-    Screenshots
-    Installation
-    Usage
-    Project Structure
-    Game Flow
-    Contributing
-    License
-    Acknowledgments
+In Neon Shadows, players are divided into two factions: **Corporate** and **Resistance**. Each faction has specific objectives, and roles within the factions possess unique abilities. The game alternates between **Day** and **Night** phases, during which players debate, vote, and take covert actions.
 
-Screenshots
-<details> <summary>Console Snippet</summary>
+AI-driven players use reasoning, memory, and strategic planning to engage in the game, creating an immersive social deduction experience even in single-player mode.
 
-=== DAY PHASE (Day 1) ===
-AIPlayer2 says: I suspect AIPlayer4 is hiding something. Let's keep a close eye.
-AIPlayer4 says: I promise I have nothing to hide! I'm on your side...
-...
-By majority vote, AIPlayer4 is exiled!
+---
 
-</details>
+## Features
 
-(Add actual screenshots or images if available.)
-Installation
+- **AI Integration**: Each player is controlled by an AI capable of reasoning, deception, and collaboration.
+- **Dynamic Phases**: Day discussions and voting, followed by covert night actions.
+- **Hidden Roles**: Secret objectives keep gameplay engaging and unpredictable.
+- **Memory & History**: AI players maintain memories of events to influence future actions and decisions.
+- **Expandable**: Flexible design allows for additional roles and game rules.
 
-    Clone this repository:
+---
 
-git clone https://github.com/<YourUserName>/neon-shadows.git
-cd neon-shadows
+## Game Roles
 
-Install Dependencies:
+### 1. **Corporate**
+- **Objective**: Sabotage and outnumber the Resistance.
+- **Abilities**: Coordinate at night to eliminate a target.
+  
+### 2. **Netrunner** (Resistance-aligned)
+- **Objective**: Uncover Corporate agents.
+- **Abilities**: Investigate a player's role during the night.
 
-    Requires Python 3.8+
-    Install required packages:
+### 3. **Doctor** (Resistance-aligned)
+- **Objective**: Protect allies and thwart Corporate attacks.
+- **Abilities**: Heal a player during the night to prevent their elimination.
 
-    pip install -r requirements.txt
+### 4. **Resistance**
+- **Objective**: Identify and exile all Corporate agents.
+- **Abilities**: None (basic voting role).
 
-(Ensure your requirements.txt includes packages like openai or any other dependencies.)
+---
 
-Set Your OpenAI API Key:
+## How It Works
 
-    Commonly, you’d do:
+1. **Role Assignment**:
+   Players are randomly assigned roles at the start of the game.
 
-        export OPENAI_API_KEY="sk-..."
+2. **Day Phase**:
+   - Players discuss suspicions and share observations.
+   - A vote determines who gets exiled.
 
-        Or provide it in your code (not recommended for production).
+3. **Night Phase**:
+   - Corporate agents coordinate to eliminate a target.
+   - Special roles (Doctor, Netrunner) use their abilities.
 
-Usage
+4. **Win Conditions**:
+   - Resistance wins when all Corporate agents are eliminated.
+   - Corporate wins if they outnumber or equal the Resistance.
 
-    Run the Game:
+---
 
-    python main.py
+## Getting Started
 
-    This starts a console-based simulation where each AI “player” performs their day/night actions, logs discussions, and eventually ends once a winning condition is reached (all Corporate exiled, or Corporate tying/outnumbering the Resistance).
+### Prerequisites
 
-    Customizing Roles:
-        Open roles.py to adjust or add special abilities (e.g., Street Samurai, Corporate Enforcer, Mad Techno-Shaman, etc.).
+- Python 3.9 or later
+- OpenAI API key (for AI player functionality)
 
-    Tweak Prompts:
-        See ai_brain.py for functions that craft LLM prompts. Adjust them for more dramatic roleplay or stricter behavior rules.
+### Installation
 
-    Game Configuration:
-        Within main.py, you can change the number of AI players, their names, or role distributions.
-        Adjust the model (e.g., gpt-3.5-turbo or gpt-4) and temperature parameters to control AI creativity vs. logical consistency.
-
-Project Structure
-
-neon-shadows/
-├── ai_brain.py         # LLM prompt-building and response handling
-├── day_night.py        # Main day/night cycle flow
-├── main.py             # Entry point for running the game loop
-├── player.py           # Player class, storing role & memory
-├── public_state.py     # Utilities for building “public” vs. “private” info
-├── roles.py            # Definitions of roles & their abilities
-├── requirements.txt    # Python dependencies
-├── README.md           # This file
-└── ... (additional modules, test files, etc.)
-
-Game Flow
-
-    Initialization
-        main.py sets up a list of players, assigns roles, and starts the game loop.
-
-    Day Phase
-        Each AI player receives prompts to “speak” (accuse, defend) and then “vote” for a suspect.
-        The group tallies votes; the highest-voted player is exiled.
-
-    Night Phase
-        Corporate attempts a kill.
-        Doctor can protect someone; Netrunner can investigate a target.
-
-    Win Condition
-        If no Corporate remain, Resistance wins.
-        If Corporate tie or outnumber the rest, Corporate wins.
-
-Contributing
-
-Contributions are welcome! To propose changes or add new features:
-
-    Fork this repo
-    Create a feature branch:
-
-git checkout -b feature/my-new-feature
-
-Commit your changes:
-
-git commit -m "Add some feature"
-
-Push to the branch:
-
-    git push origin feature/my-new-feature
-
-    Open a Pull Request on GitHub
-
-License
-
-    (Choose a license, e.g., MIT)
-
-MIT License
-
-Copyright (c) [Year]
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction...
-
-Acknowledgments
-
-    Inspired by classic social deduction games like Werewolf/Mafia and Town of Salem.
-    Prompt engineering strategies drawn from AI roleplay community ideas and iterative refinement.
-    Special thanks to all the open-source contributors and early playtesters.
-
-Enjoy playing and tinkering with Neon Shadows! For questions or suggestions, open an Issue or Pull Request in this repo or contact the dev team directly.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/neon-shadows.git
+   cd neon-shadows
