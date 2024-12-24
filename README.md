@@ -89,3 +89,53 @@ AI-driven players use reasoning, memory, and strategic planning to engage in the
    ```bash
    git clone https://github.com/yourusername/neon-shadows.git
    cd neon-shadows
+   ```
+
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Add your OpenAI API key to the environment:
+   ```bash
+   export OPENAI_API_KEY=your_api_key
+   ```
+
+### Run the Game
+
+To start a game with AI players:
+```bash
+python main.py
+```
+
+---
+
+## Future Enhancements
+
+- New roles with unique abilities.
+- Multiplayer support with live players.
+- Enhanced AI logic and memory mechanisms.
+- Improved visualizations and UX for the gameplay.
+
+---
+
+## Contributing
+
+We welcome contributions from the community! Please feel free to submit issues, fork the repository, and create pull requests.
+
+1. Fork the repository.
+2. Create a new branch:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+3. Commit your changes and open a pull request.
+
+---
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+Embark on a journey of hidden agendas, deceptions, and alliances in **Neon Shadows**. May the best faction win!
